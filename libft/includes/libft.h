@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 18:42:52 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/06 18:56:48 by sikpenou         ###   ########.fr       */
+/*   Updated: 2020/02/11 10:44:17 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct			s_head
 	t_lst				*last;
 }						t_head;
 
-typedef int				(*t_lstmap_func)(t_head *, t_lst *);
+typedef int				(*t_func_lstmap)(t_head *, t_lst *);
 
 typedef struct			s_h_elem
 {
@@ -79,11 +79,11 @@ typedef struct			s_h_elem
 	void				*content;
 }						t_h_elem;
 
-typedef int				(*t_h_iter_func)(t_h_elem *);
+typedef int				(*t_func_h_iter)(t_h_elem *);
 
-typedef unsigned		(*t_h_hash_func)(char *);
+typedef unsigned		(*t_func_h_hash)(char *);
 
-typedef void			(*t_h_free_func)(void **);
+typedef void			(*t_func_h_free)(void **);
 
 typedef struct			s_h_table
 {
@@ -91,8 +91,8 @@ typedef struct			s_h_table
 	unsigned			elems;
 	unsigned			collisions;
 	unsigned			collisions_limit;
-	t_h_hash_func		hash_func;
-	t_h_free_func		free_func;
+	t_func_h_hash		hash_func;
+	t_func_h_free		free_func;
 	t_head				*array;
 }						t_h_table;
 
@@ -129,139 +129,143 @@ typedef struct			s_d_array
 }						t_d_array;
 
 
-int						ft_realloc(void **zone, long curr_size
-	, long to_add);
-unsigned long long		ft_ato_ull(const char *str, int *pos);
-int						ft_display(t_buf *buf, int opt);
-char					*ft_ulltoa(unsigned long long n);
 void					*easymalloc(size_t size);
+void					easyfree(void **match);
+
+unsigned long long		ft_ato_ull(const char *str, int *pos);
 int						ft_abs(int a);
 int						ft_atoi(const char *str);
 int						ft_atoi_base(char *nbr, char *base_from);
-long					ft_atou_mv(char **str, char opt);
-void					ft_bzero(void *s, size_t n);
-long long int			ft_pow(long long int nb, long long int pow);
+
 int						ft_check_base(char *str, char *base);
 char					*ft_convert_base(char *nbr, char *base_from
 	, char *base_to);
+
+unsigned				ft_d_array_add(t_d_array *d_array, void *content);
+t_d_array				*ft_d_array_alloc(void);
+void					ft_d_array_free(t_d_array **d_array);
+void					*ft_d_array_get_by_content(t_d_array *d_array
+	, void *content);
+void					*ft_d_array_get_by_index(t_d_array *d_array
+	, unsigned index);
+int						ft_display(t_buf *buf, int opt);
+
 int						ft_find_next_prime(long unsigned nb);
 void					ft_free(void **match);
-void					easyfree(void **match);
-int						ft_free_tab(void **tab, size_t len);
 void					ft_free_gc(void);
+int						ft_free_tab(void **tab, size_t len);
+
+t_h_table				*ft_h_new_table(void);
+int						ft_h_add_elem(t_h_table *table, char *key
+	, void *content);
+int						ft_h_resize_array(t_h_table *table
+	, unsigned new_size);
+void					*ft_h_get_content(t_h_table *table, char *key);
+t_h_elem				*ft_h_get_elem(t_h_table *table, char *key);
+void					ft_h_free_elem(t_h_table *table, t_h_elem *hash_elem
+	, int opt);
+t_h_elem				*ft_h_pop_elem(t_h_table *table, char *key);
+void					ft_h_free_table(t_h_table *table, int opt);
+int						ft_h_iter(t_h_table *table, t_func_h_iter iter_func);
+
 int						ft_isalnum(int c);
 int						ft_isalpha(int c);
-int						ft_isascii(int c);
 int						ft_ischarset(unsigned char c, char *charset);
 int						ft_isdigit(int c);
-int						ft_isprint(int c);
 int						ft_isspace(int c);
 char					*ft_itoa(int n);
-char					*ft_itoa_base(long int nb, char *base_to);
+char					*ft_itoa_base(long nb, char *base_to);
+
+unsigned				ft_lltoa_base(long long nb, char *base_to, char *result);
 int						ft_lstcycle(t_lst *begin);
 void					ft_lstjoin(t_head *head_dest, t_head *head_src);
-int						ft_lstmap(t_head *head, t_lstmap_func func);
+int						ft_lstmap(t_head *head, t_func_lstmap func);
 t_head					*ft_lstnew(void *content);
 t_head					*ft_lstcpy(t_head *original_head);
-t_lst					*ft_lstnew_elem(void *content);
-t_head					*ft_lstnew_head(void);
 void					ft_lstadd(t_head *head, t_lst *newl);
+void					ft_lstadd_back(t_head *head, t_lst *newl);
+t_lst					*ft_lstadd_back_new(t_head *head, void *content);
+t_lst					*ft_lstadd_new(t_head *head, void *content);
 void					ft_lstadd_sorted(t_head *head, t_lst *newl
 	, int (*cmp)(t_lst *, t_lst *));
-void					ft_lstadd_back(t_head *head, t_lst *newl);
-t_lst					*ft_lstadd_new(t_head *head, void *content);
-t_lst					*ft_lstadd_back_new(t_head *head, void *content);
-t_lst					*ft_lstpop(t_head *head, void *match);
-t_lst					*ft_lstpop_elem(t_head *head, t_lst *elem);
-void					ft_lsttransfer(t_head *head_from, t_head *heaad_to
-	, t_lst *elem);
 t_lst					*ft_lstfind(t_head *head, void *match);
 void					ft_lstfree(t_head **head, int opt_elems, int opt_head);
 void					ft_lstfree_elem(t_lst **elem, int opt);
 void					ft_lstfree_head(t_head **head);
 void					ft_lstinsert(t_head *head, t_lst *ref, t_lst *insert
 	, int bef_or_aft);
+t_lst					*ft_lstnew_elem(void *content);
+t_head					*ft_lstnew_head(void);
+t_lst					*ft_lstpop(t_head *head, void *match);
+t_lst					*ft_lstpop_elem(t_head *head, t_lst *elem);
+void					ft_lstprint(t_head *head, char *name, unsigned opt);
+void					ft_lst_replace_elem(t_head *head, t_lst *original
+	, t_lst *replacement);
 void					ft_lstsort(t_head *head
 	, int (*f_cmp)(t_lst *, t_lst *));
 void					ft_lstswap_contents(t_lst *elem_1, t_lst *elem_2);
 void					ft_lstswap_heads(t_head *head, t_lst *elem_1
 	, t_lst *elem_2);
-void					ft_lst_replace_elem(t_head *head, t_lst *original
-	, t_lst *replacement);
+void					ft_lsttransfer(t_head *head_from, t_head *heaad_to
+	, t_lst *elem);
+
 int						ft_max(int a, int b);
+void					*ft_memalloc(size_t size);
 int						ft_memchr_pos(const void *s, int c, size_t n);
-void					*ft_memset(void *b, unsigned char c, size_t len);
-void					ft_memcset(void *o_s, int c, int stop);
 int						ft_memcmp(const void *s1, const void *s2, size_t n);
-void					*ft_memcpy(void *dst, const void *src, size_t n);
 void					*ft_memccpy(void *dst, const void *src, int c
 	, size_t n);
+void					*ft_memcpy(void *dst, const void *src, size_t n);
+void					*ft_memcpy_heap(void *dst, const void *src, size_t n);
+void					ft_memcset(void *o_s, int c, int stop);
 void					*ft_memmove(void *dst, const void *src, size_t len);
-void					*ft_memalloc(size_t size);
-void					ft_memdel(void **ap);
+void					*ft_memset(void *b, unsigned char c, size_t len);
 int						ft_min(int a, int b);
-void					ft_putchar(char c);
-void					ft_putchar_fd(char c, int fd);
-void					ft_putendl(char const *s);
-void					ft_putendl_fd(char const *str, int fd);
+
+void					ft_nb_to_str(unsigned long long nb, char *str
+	, char *base_to, unsigned start_pos);
+
+long long int			ft_pow(long long int nb, long long int pow);
 void					ft_putnbr(long long n);
 void					ft_putnbr_fd(int n, int fd);
-void					ft_putstr(char const *s);
-int						ft_putstr_ret(char const *s);
-void					ft_putstr_fd(char const *str, int fd);
-int						ft_putstr_fd_ret(char const *str, int fd);
-int						ft_strcmp(char *s1, char *s2);
-int						ft_strncmp(const char *s1, const char *s2, size_t n);
-char					*ft_strcpy(char *dest, char *src);
-char					*ft_strdup(const char *s1);
-size_t					ft_strlen(const char *s);
-size_t					ft_strncpy(char *dst, const char *src, size_t len);
-char					*ft_strrev(char *str);
-char					*ft_strstr(const char *haystack, const char *needle);
+
+int						ft_realloc(void **zone, long curr_size
+	, long to_add);
+
+void					ft_set_lib_error_tab(t_error_tab *tab);
 int						ft_strchr_pos(char *str, int c);
-char					*ft_strrchr(const char *str, int c);
-int						ft_strequ(char const *s1, char const *s2);
-int						ft_strnequ(char const *s1, char const *s2, size_t n);
-char					*ft_strsub(char const *s, unsigned int start
-	, size_t len);
+int						ft_strcmp(char *s1, char *s2);
+int						ft_strcmp_heap(char *s1, char *s2);
+char					*ft_strcpy(char *dest, char *src);
+char					*ft_strcpy_heap(char *dest, char *src);
+char					*ft_strdup(const char *s1);
 char					*ft_strjoin(char *s1, char *s2);
 char					*ft_strjoin_free(char **s1, char **s2, int opt);
+//size_t					ft_strlen(const char *s);
+size_t					ft_strlen(const char *s);
+size_t					ft_strlen_heap(const char *s);
+int						ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t					ft_strncpy(char *dst, const char *src, size_t len);
+char					*ft_strrchr(const char *str, int c);
+char					*ft_strrev(char *str);
+char					*ft_strstr(const char *haystack, const char *needle);
 char					*ft_strtrim(char const *s);
-char					*ft_strnew(size_t size);
-void					ft_strdel(char **as);
-void					ft_strclr(char *s);
-char					**ft_strsplit(char const *s, char c);
-void					ft_print_words_tables(char **tab);
+char					*ft_strsub(char const *s, unsigned int start
+	, size_t len);
 void					ft_swap(void **a, void **b, int opt);
 void					ft_swapstr(char **a, char **b);
-void					ft_lstprint(t_head *head, char *name, unsigned opt);
+
+char					*ft_ulltoa(unsigned long long n);
+unsigned				ft_ulltoa_base(unsigned long long n, char *base_to
+	, char *result);
+
 int						get_gc_data(int opt);
 t_head					*get_gc_list(int opt);
-t_h_table				*ft_hash_new_table(void);
-int						ft_hash_add_elem(t_h_table *table, char *key
-	, void *content);
-int						ft_hash_resize_array(t_h_table *table
-	, unsigned new_size);
-void					*ft_hash_get_content(t_h_table *table, char *key);
-t_h_elem				*ft_hash_get_elem(t_h_table *table, char *key);
-void					ft_hash_free_elem(t_h_table *table, t_h_elem *hash_elem
-	, int opt);
-t_h_elem				*ft_hash_pop_elem(t_h_table *table, char *key);
-void					ft_hash_free_table(t_h_table *table, int opt);
-int						ft_hash_iter(t_h_table *table, t_h_iter_func iter_func);
-void					hash_print_elem(t_h_elem *elem);
-void					hash_print_index(t_h_table *table, unsigned index
-	, int opt);
-void					hash_print_table(t_h_table *table, int opt);
-void					hash_print_table_data(t_h_table *table);
 
-void					ft_d_array_free(t_d_array **d_array);
-t_d_array				*ft_d_array_alloc(void);
-unsigned				ft_d_array_add(t_d_array *d_array, void *content);
-void					*ft_d_array_get_by_index(t_d_array *d_array
-	, unsigned index);
-void					*ft_d_array_get_by_content(t_d_array *d_array
-	, void *content);
-void					ft_set_lib_error_tab(t_error_tab *tab);
+void					h_print_elem(t_h_elem *elem);
+void					h_print_index(t_h_table *table, unsigned index
+	, int opt);
+void					h_print_table(t_h_table *table, int opt);
+void					h_print_table_data(t_h_table *table);
 
 #endif

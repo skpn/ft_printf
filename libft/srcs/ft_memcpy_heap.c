@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy_heap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikpenou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 18:06:02 by sikpenou          #+#    #+#             */
-/*   Updated: 2019/10/21 14:28:15 by sikpenou         ###   ########.fr       */
+/*   Created: 2020/02/11 09:22:42 by skpn              #+#    #+#             */
+/*   Updated: 2020/02/11 09:22:43 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy_heap(void *dst, const void *src, size_t n)
 {
 	long	*cpy_dst;
 	long	*cpy_src;

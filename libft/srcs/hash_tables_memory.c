@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void			ft_hash_free_elem(t_h_table *table, t_h_elem *hash_elem
+void			ft_h_free_elem(t_h_table *table, t_h_elem *hash_elem
 	, int opt)
 {
 	if (opt != FREE_LINKS)
@@ -20,7 +20,7 @@ void			ft_hash_free_elem(t_h_table *table, t_h_elem *hash_elem
 	easyfree((void **)&hash_elem);
 }
 
-void			ft_hash_free_table(t_h_table *table, int opt)
+void			ft_h_free_table(t_h_table *table, int opt)
 {
 	unsigned	index;
 	t_head		*index_head;
@@ -35,7 +35,7 @@ void			ft_hash_free_table(t_h_table *table, int opt)
 			while (index_head->first)
 			{
 				index_lst = ft_lstpop(index_head, index_head->first->content);
-				ft_hash_free_elem(table, index_lst->content, opt);
+				ft_h_free_elem(table, index_lst->content, opt);
 				ft_lstfree_elem(&index_lst, FREE_LINKS);
 			}
 		}
@@ -63,7 +63,7 @@ void			basic_free_hash_elem_content(void **content)
 	easyfree((void **)content);
 }
 
-t_h_table		*ft_hash_new_table(void)
+t_h_table		*ft_h_new_table(void)
 {
 	t_h_table	*new_table;
 	unsigned	size;
@@ -73,7 +73,7 @@ t_h_table		*ft_hash_new_table(void)
 	new_table->hash_func = &hash_str_key;
 	new_table->free_func = &basic_free_hash_elem_content;
 	size = ft_find_next_prime(INITIAL_HASH_ARRAY_SIZE);
-	if (!ft_hash_resize_array(new_table, size))
+	if (!ft_h_resize_array(new_table, size))
 		return (NULL);
 	return (new_table);
 }

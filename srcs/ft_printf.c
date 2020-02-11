@@ -3,35 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:01:51 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/06 19:31:56 by sikpenou         ###   ########.fr       */
+/*   Updated: 2020/02/11 11:19:13 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
+#include <unistd.h>
+
+void	init_pf_func_tab(t_pf *pf)
+{
+	pf->func[TYPE_C] = &expand_type_c;
+	pf->func[TYPE_S] = &expand_type_s;
+}
+
+int		core_pf(t_pf *pf)
+{
+	int		check_ret;
+
+	if (PF_BUF < 2)
+		return (ERROR_PF_BUF_TOO_SMALL)
+	init_pf_func_tab(pf);
+	if ((check_ret = parse_pf_format(pf)) != EXIT_SUCCESS)
+		return (print_error_pf(pf, check_ret));
+	if ((check_ret = ft_lstmap(&pf->args, &expand_pf_arg)) != EXIT_SUCCESS)
+		return (print_error_pf(pf, check_ret));
+	return (EXIT_SUCCESS);
+}
 
 int		ft_printf(char *format, ...)
 {
-	int		check_ret;
 	t_pf	pf;
 
-	//if (check_ret  = init_structs_pf(&pf, format) != EXIT_SUCCESS)
-	//	print_error_pf(check_ret);
 	ft_memset(&pf, 0, sizeof(pf));
 	pf.format = format;
 	va_start(pf.ap, format);
-	if ((check_ret = parse_pf_format(&pf)) != EXIT_SUCCESS)
-		return (print_error_pf(check_ret, &pf));
-	return (pf.buf_size);
+	if (core_pf(&pf) == EXIT_SUCCESS)
+		write(1, pf.result, pf.size);
+	exit_pf(&pf);
+	return (pf.size);
 }
 
+#include <limits.h>
 int		main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
-	ft_printf("arg1: %s\narg2: %s\n", "arg1", "arg2");
+
+	ft_printf("arg1: %d, arg2: %c\n", 10, 'a');
 	return (0);
 }

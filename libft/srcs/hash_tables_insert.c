@@ -38,7 +38,7 @@ static void	transfer_hash_elems(t_h_table *table, unsigned new_size
 	}
 }
 
-int			ft_hash_resize_array(t_h_table *table, unsigned new_size)
+int			ft_h_resize_array(t_h_table *table, unsigned new_size)
 {
 	t_head	*old_array;
 
@@ -92,13 +92,13 @@ static int	insert_hash_elem(t_h_table *table, unsigned index
 		if (table->collisions > table->collisions_limit)
 		{
 			new_size = ft_find_next_prime(table->size + 1);
-			return (ft_hash_resize_array(table, new_size));
+			return (ft_h_resize_array(table, new_size));
 		}
 	}
 	return (1);
 }
 
-int			ft_hash_add_elem(t_h_table *table, char *key, void *content)
+int			ft_h_add_elem(t_h_table *table, char *key, void *content)
 {
 	unsigned	index;
 	t_h_elem	*new_elem;
@@ -111,7 +111,7 @@ int			ft_hash_add_elem(t_h_table *table, char *key, void *content)
 	index = new_elem->hash % table->size;
 	if (!insert_hash_elem(table, index, new_elem))
 	{
-		ft_hash_free_elem(table, new_elem, FREE_LINKS);
+		ft_h_free_elem(table, new_elem, FREE_LINKS);
 		return (0);
 	}
 	table->elems++;

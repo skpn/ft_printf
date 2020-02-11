@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   hash_tables_access.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikpenou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 14:47:21 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/01/11 18:07:55 by sikpenou         ###   ########.fr       */
+/*   Updated: 2020/02/10 12:18:44 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_hash_iter(t_h_table *table, t_h_iter_func iter_func)
+int			ft_h_iter(t_h_table *table, t_func_h_iter iter_func)
 {
 	unsigned	index;
 	t_lst		*index_lst;
@@ -35,7 +35,7 @@ int			ft_hash_iter(t_h_table *table, t_h_iter_func iter_func)
 	return (1);
 }
 
-t_h_elem	*ft_hash_get_elem(t_h_table *table, char *key)
+t_h_elem	*ft_h_get_elem(t_h_table *table, char *key)
 {
 	unsigned	index;
 	t_h_elem	*hash_elem;
@@ -53,17 +53,17 @@ t_h_elem	*ft_hash_get_elem(t_h_table *table, char *key)
 	return (NULL);
 }
 
-void		*ft_hash_get_content(t_h_table *table, char *key)
+void		*ft_h_get_content(t_h_table *table, char *key)
 {
 	t_h_elem	*hash_elem;
 
-	hash_elem = ft_hash_get_elem(table, key);
+	hash_elem = ft_h_get_elem(table, key);
 	if (hash_elem)
 		return (hash_elem->content);
 	return (NULL);
 }
 
-t_h_elem	*ft_hash_pop_elem(t_h_table *table, char *key)
+t_h_elem	*ft_h_pop_elem(t_h_table *table, char *key)
 {
 	unsigned	index;
 	t_head		*index_head;
@@ -74,7 +74,7 @@ t_h_elem	*ft_hash_pop_elem(t_h_table *table, char *key)
 	index_head = &(table->array[index]);
 	if (index_head)
 	{
-		popped_elem = ft_hash_get_elem(table, key);
+		popped_elem = ft_h_get_elem(table, key);
 		popped_lst = ft_lstpop(index_head, popped_elem);
 		if (popped_lst)
 		{

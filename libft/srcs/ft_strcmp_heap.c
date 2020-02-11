@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp_heap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikpenou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/18 00:17:35 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/01/24 13:45:52 by sikpenou         ###   ########.fr       */
+/*   Created: 2020/02/11 09:23:16 by skpn              #+#    #+#             */
+/*   Updated: 2020/02/11 09:23:17 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** fsanitize detects a global buffer overflow on this function
-*/
-
-int		ft_strcmp(char *s1, char *s2)
+int		ft_strcmp_heap(char *s1, char *s2)
 {
 	long	*long_s1;
 	long	*long_s2;

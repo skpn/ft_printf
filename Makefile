@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+         #
+#    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 21:32:05 by sikpenou          #+#    #+#              #
-#    Updated: 2020/02/06 19:32:34 by sikpenou         ###   ########.fr        #
+#    Updated: 2020/02/10 15:09:11 by skpn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,13 @@ NAME = ft_printf
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 SRC_FILES =	\
+			debug_pf.c \
+			errors_pf.c \
+			expand_pf_arg.c \
 			ft_printf.c \
 			init_structs_pf.c \
-			parse_args_pf.c
+			parse_args_pf.c \
+			parse_arg_pf_funcs.c
 
 SRC_DIR = srcs/
 

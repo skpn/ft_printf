@@ -2,7 +2,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-int		ft_lstmap(t_head *head, t_lstmap_func func)
+int		ft_lstmap(t_head *head, t_func_lstmap func)
 {
 	int		check_ret;
 	t_lst	*lst;

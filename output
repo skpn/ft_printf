@@ -1,0 +1,25 @@
+srcs/parse_args_pf.c get_size 53
+srcs/parse_args_pf.c get_size 60
+srcs/parse_args_pf.c get_size 74
+srcs/parse_args_pf.c get_size 77
+srcs/parse_args_pf.c get_size 53
+srcs/parse_args_pf.c get_size 60
+srcs/parse_args_pf.c get_size 74
+srcs/parse_args_pf.c get_size 77
+srcs/parse_args_pf.c get_size 53
+srcs/parse_args_pf.c get_size 60
+srcs/parse_args_pf.c get_size 74
+srcs/parse_args_pf.c get_size 77
+PRINTING ARGS:
+ARG POS 0: PRINTING ARG
+type     : 3 (d)
+width    : 3
+has_prec : 1
+prec     : 0
+field	 : 0
+raw value: 10
+value    : 10
+stack str: 
+
+arg: 0x603000000010
+*arg: 0x611000000040
