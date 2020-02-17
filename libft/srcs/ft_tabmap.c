@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_char_types.c                                :+:      :+:    :+:   */
+/*   ft_tabmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/11 10:58:03 by skpn              #+#    #+#             */
-/*   Updated: 2020/02/13 13:04:09 by sikpenou         ###   ########.fr       */
+/*   Created: 2020/02/13 12:39:17 by sikpenou          #+#    #+#             */
+/*   Updated: 2020/02/13 12:43:23 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include <stdlib.h>
+#include "libft.h"
 
-int		expand_type_c(t_pf *pf, t_pf_arg *arg)
-{
-	arg->raw_len = 1;
-	get_len_prefix(arg);
-	get_len_suffix(arg);
-	prefix_to_buf(arg);
-	arg_to_buf(arg);
-	suffix_to_buf(arg);
-	return (EXIT_SUCCESS);
-}
-
-int		expand_type_s(t_pf *pf, t_pf_arg *arg)
+int		ft_tabmap(void **tab, unsigned size, t_func_tabmap func)
 {
 	int		check_ret;
 
-	arg->raw_len = ft_strlen((char *)arg->value);
-	get_len_prefix(arg);
-	get_len_suffix(arg);
+	while (size)
+	{
+		--size;
+		if ((check_ret = func(tab, size)) != EXIT_SUCCESS)
+			return (check_ret);
+	}
 	return (EXIT_SUCCESS);
 }

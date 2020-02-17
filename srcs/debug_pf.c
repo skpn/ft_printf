@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_pf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 10:41:12 by skpn              #+#    #+#             */
-/*   Updated: 2020/02/10 14:54:51 by skpn             ###   ########.fr       */
+/*   Updated: 2020/02/13 12:49:23 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ void	print_pf_arg_flags(t_pf_arg *arg)
 	printf("\n");
 }
 
-int		print_pf_arg(t_head *args, t_lst *lst_arg)
+int		print_pf_arg(void **args, unsigned arg_nb)
 {
 	t_pf_arg	*arg;
 
-	(void)args;
-	arg = lst_arg->content;
-	printf("PRINTING ARG\n");
+	arg = ((t_pf_arg **)args[arg_nb]);
+	printf("PRINTING ARG %u\n", arg_nb);
 	printf("type      : %u (%c)\n", arg->type, arg->type_char);
 	printf("width     : %u\n", arg->width);
 	printf("has_prec  : %u\n", arg->has_prec);
@@ -61,14 +60,13 @@ int		print_pf_arg(t_head *args, t_lst *lst_arg)
 	printf("raw value : %lld\n", arg->value);
 	print_pf_arg_value(arg);
 	print_pf_arg_flags(arg);
-	printf("stack str : %s\n", arg->stack_str);
-	printf("malloc_str: %s\n", arg->malloc_str);
+	printf("str : %s\n", arg->str);
 	return (EXIT_SUCCESS);
 }
 
-void	print_pf_args(t_head args)
+void	print_pf_args(t_pf *pf)
 {
-	ft_lstmap(&args, &print_pf_arg);
+	ft_tabmap((void **)&pf->args, pf->nb_args, &print_pf_arg);
 	printf("\n");
 }
 

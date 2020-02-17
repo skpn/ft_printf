@@ -19,9 +19,9 @@ int		parse_pf_arg(t_pf *pf)
 	char		c;
 	t_pf_arg	*arg;
 
-	if ((check_ret = alloc_new_arg(pf)) != EXIT_SUCCESS)
-		return (check_ret);
-	arg = pf->args.last->content;
+	arg = &pf->args[pf->nb_args++];
+	if (pf->current_arg >= NB_PF_ARGS)
+		return (ERROR_TOO_MANY_PF_ARGS);
 	while ((c = pf->format[pf->pos]) != 0)
 	{
 		if (ft_ischarset(c, PF_TYPES))
@@ -42,19 +42,26 @@ int		parse_pf_arg(t_pf *pf)
 
 int		parse_pf_format(t_pf *pf)
 {
-	int		check_ret;
+	int			check_ret;
+	unsigned	hard_text_start;
 
 	pf->pos = 0;
+	hard_text_start = 0;
 	while (pf->format[pf->pos])
 	{
 		if (pf->format[pf->pos] == '%')
 		{
+			ft_memcpy(pf->result + pf->size, pf->format + hard_text_start
+				, pf->pos - hard_text_start);
+			pf->size += pf->pos - hard_text_start;
+			hard_text
 			if (pf->format[++pf->pos] == '%')
 				++pf->pos;
 			else if (pf->format[pf->pos] != 0)
 			{
 				if ((check_ret = parse_pf_arg(pf)) != EXIT_SUCCESS)
 					return (check_ret);
+				hard_text_start = pf->pos;
 			}
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:00:55 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/11 11:20:07 by skpn             ###   ########.fr       */
+/*   Updated: 2020/02/13 12:59:47 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@
 # define FLD_LL 16
 # define NB_FIELDS 5
 
-# define PF_BUF 200
+# define PF_BUF_SIZE 5000
+# define NB_PF_ARGS 100
 
-# define ERROR_NO_TYPE USER_ERRORS_START
-# define ERROR_BAD_TYPE USER_ERRORS_START + 1
-# define ERROR_PF_BUF_TOO_SMALL USER_ERRORS_START + 2
+# define ERROR_NO_TYPE 0
+# define ERROR_BAD_TYPE 1
+# define ERROR_PF_BUF_TOO_SMALL 2
+# define ERROR_TOO_MANY_PF_ARGS 3
 
 typedef struct		s_pf_arg
 {
@@ -55,29 +57,33 @@ typedef struct		s_pf_arg
 	long long		value;
 	unsigned		raw_len;
 	unsigned		final_len;
+	char			*str;
 	char			flag[NB_PF_FLAGS];
-	char			stack_str[PF_BUF];
-	char			*malloc_str;
 }					t_pf_arg;
 
-typedef int			(*t_func_pf)(t_pf_arg *);
+typedef int			(*t_func_pf)(t_pf *pf, t_pf_arg *);
 
 typedef struct		s_pf
 {
 	unsigned		pos;
 	unsigned		size;
 	unsigned		format_len;
-	t_head			args;
+	unsigned		nb_args;
+	unsigned		current_arg;
+	t_pf_arg		*args;
 	va_list			ap;
 	char			*format;
+	char			arg_buf[PF_BUF_SIZE];
 	char			*result;
-	t_func_pf		func[NB_PF_TYPES];
+	t_func_pf		*func;
 }					t_pf;
 
 int					alloc_new_arg(t_pf *pf);
 
 void				exit_pf(t_pf *pf);
 int					expand_pf_arg(t_head *args, t_lst *lst_arg);
+int					expand_type_c(t_pf *pf, t_pf_arg *arg);
+int					expand_type_s(t_pf *pf, t_pf_arg *arg);
 
 int					parse_pf_format(t_pf *pf);
 void				parse_pf_arg_field(t_pf *pf, t_pf_arg *arg, unsigned char c);
@@ -88,7 +94,7 @@ int					parse_pf_arg_type(t_pf *pf, t_pf_arg *arg, unsigned char c);
 int					parse_pf_arg_value(t_pf *pf, t_pf_arg *arg);
 
 int					print_error_pf(t_pf *pf, int error);
-int					print_pf_arg(t_head *args, t_lst *lst_arg);
-void				print_pf_args(t_head args);
+int					print_pf_arg(void **args, unsigned arg_nb);
+void				print_pf_args(t_pf *pf);
 
 #endif

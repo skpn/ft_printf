@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
+#    By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 21:32:05 by sikpenou          #+#    #+#              #
-#    Updated: 2020/02/11 10:44:35 by skpn             ###   ########.fr        #
+#    Updated: 2020/02/13 12:44:18 by sikpenou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRCFILES = \
 			ft_strstr.c \
 			ft_strsub.c \
 			ft_swap.c \
+			ft_tabmap.c \
 			ft_ulltoa.c \
 			ft_ulltoa_base.c \
 			hash_tables_memory.c \

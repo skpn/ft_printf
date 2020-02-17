@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 18:42:52 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/11 10:44:17 by skpn             ###   ########.fr       */
+/*   Updated: 2020/02/13 12:44:00 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@
 # define ERROR_D_ARRAY_SIZE 4
 # define ERROR_MAGIC_FILE 5
 # define ERROR_WITHOUT_MSG 6
-# define USER_ERRORS_START 7
+# define ERROR_USER_ERROR_NUMBER_TOO_LOW 7
+# define ERROR_USER_ERROR_NUMBER_TOO_HIGH 7
+# define USER_ERRORS_START 8
 # define MAX_ERROR 100
 # define ERROR_MAX_LENGTH 500
 
@@ -71,6 +73,7 @@ typedef struct			s_head
 }						t_head;
 
 typedef int				(*t_func_lstmap)(t_head *, t_lst *);
+typedef int				(*t_func_tabmap)(void **, unsigned);
 
 typedef struct			s_h_elem
 {
@@ -229,10 +232,11 @@ long long int			ft_pow(long long int nb, long long int pow);
 void					ft_putnbr(long long n);
 void					ft_putnbr_fd(int n, int fd);
 
-int						ft_realloc(void **zone, long curr_size
-	, long to_add);
+int						ft_realloc(void **zone, long curr_size_in_octs
+	, long to_add_in_octs);
 
-void					ft_set_lib_error_tab(t_error_tab *tab);
+void					ft_set_error_tab(t_error_tab *tab);
+void					ft_set_user_error(t_error_tab *tab);
 int						ft_strchr_pos(char *str, int c);
 int						ft_strcmp(char *s1, char *s2);
 int						ft_strcmp_heap(char *s1, char *s2);
@@ -254,6 +258,9 @@ char					*ft_strsub(char const *s, unsigned int start
 	, size_t len);
 void					ft_swap(void **a, void **b, int opt);
 void					ft_swapstr(char **a, char **b);
+
+int						ft_tabmap(void **tab, unsigned size
+	, t_func_tabmap func);
 
 char					*ft_ulltoa(unsigned long long n);
 unsigned				ft_ulltoa_base(unsigned long long n, char *base_to
