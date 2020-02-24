@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 18:42:52 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/13 12:44:00 by sikpenou         ###   ########.fr       */
+/*   Updated: 2020/02/24 10:53:44 by skpn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,18 @@
 # define QUIET 0
 # define VERBOSE 1
 
-# define ERROR_MALLOC 1
-# define ERROR_OPEN_FD 2
-# define ERROR_READ 3
-# define ERROR_D_ARRAY_SIZE 4
-# define ERROR_MAGIC_FILE 5
-# define ERROR_WITHOUT_MSG 6
-# define ERROR_USER_ERROR_NUMBER_TOO_LOW 7
-# define ERROR_USER_ERROR_NUMBER_TOO_HIGH 7
-# define USER_ERRORS_START 8
-# define MAX_ERROR 100
-# define ERROR_MAX_LENGTH 500
+# define MAX_ERROR 60
+# define MAX_ERROR_LENGTH 100
+# define ERROR_MALLOC MAX_ERROR - 1
+# define ERROR_OPEN_FD MAX_ERROR - 2
+# define ERROR_READ MAX_ERROR - 3
+# define ERROR_D_ARRAY_SIZE MAX_ERROR - 4
+# define ERROR_MAGIC_FILE MAX_ERROR - 5
+# define ERROR_WITHOUT_MSG MAX_ERROR - 6
+# define ERROR_ERROR_TAB_IS_FULL MAX_ERROR - 7
+# define ERROR_ERROR_NUMBER_IS_EXIT_SUCCESS MAX_ERROR - 8
+# define ERROR_ERROR_NUMBER_UNAVAILABLE MAX_ERROR - 9
+# define ERROR_ERROR_NUMBER_TOO8HIGH - 10
 
 # include <stdarg.h>
 # include <stddef.h>
@@ -53,9 +54,9 @@
 #define POS printf("%s %s %d\n", __FILE__, __func__, __LINE__); fflush(0)
 typedef struct			s_error_tab
 {
-	unsigned			user_errors_start;
-	unsigned			max_error;
-	char				*error[MAX_ERROR];
+	unsigned			fd;
+	unsigned			highest_error;
+	char				error[MAX_ERROR][MAX_ERROR_LENGTH + 1];
 }						t_error_tab;
 
 typedef struct			s_lst
@@ -157,6 +158,7 @@ int						ft_find_next_prime(long unsigned nb);
 void					ft_free(void **match);
 void					ft_free_gc(void);
 int						ft_free_tab(void **tab, size_t len);
+void					ft_free_error_tab(t_error_tab *tab);
 
 t_h_table				*ft_h_new_table(void);
 int						ft_h_add_elem(t_h_table *table, char *key
@@ -219,24 +221,23 @@ int						ft_memcmp(const void *s1, const void *s2, size_t n);
 void					*ft_memccpy(void *dst, const void *src, int c
 	, size_t n);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
-void					*ft_memcpy_heap(void *dst, const void *src, size_t n);
 void					ft_memcset(void *o_s, int c, int stop);
 void					*ft_memmove(void *dst, const void *src, size_t len);
 void					*ft_memset(void *b, unsigned char c, size_t len);
 int						ft_min(int a, int b);
 
-void					ft_nb_to_str(unsigned long long nb, char *str
-	, char *base_to, unsigned start_pos);
-
 long long int			ft_pow(long long int nb, long long int pow);
+void					ft_print_error(t_error_tab *tab, unsigned error);
+void					ft_print_error_tab(t_error_tab *tab);
 void					ft_putnbr(long long n);
 void					ft_putnbr_fd(int n, int fd);
 
 int						ft_realloc(void **zone, long curr_size_in_octs
 	, long to_add_in_octs);
 
-void					ft_set_error_tab(t_error_tab *tab);
-void					ft_set_user_error(t_error_tab *tab);
+int						ft_set_error_tab(t_error_tab **tab, unsigned fd);
+int						ft_set_user_error(t_error_tab *tab, unsigned error_nb
+	, char *msg);
 int						ft_strchr_pos(char *str, int c);
 int						ft_strcmp(char *s1, char *s2);
 int						ft_strcmp_heap(char *s1, char *s2);

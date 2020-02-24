@@ -6,7 +6,7 @@
 #    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 21:32:05 by sikpenou          #+#    #+#              #
-#    Updated: 2020/02/10 15:09:11 by skpn             ###   ########.fr        #
+#    Updated: 2020/02/23 19:26:36 by skpn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,15 @@ NAME = ft_printf
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 SRC_FILES =	\
-			debug_pf.c \
-			errors_pf.c \
-			expand_pf_arg.c \
-			ft_printf.c \
-			init_structs_pf.c \
-			parse_args_pf.c \
-			parse_arg_pf_funcs.c
+			pf_core.c \
+			pf_debug.c \
+			pf_expand_args.c \
+			pf_ft_printf.c \
+			pf_init_structs.c \
+			pf_padding.c \
+			pf_parsing.c
+			#pf_buffer.c \
+			#pf_errors.c \
 
 SRC_DIR = srcs/
 

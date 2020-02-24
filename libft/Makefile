@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+         #
+#    By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 21:32:05 by sikpenou          #+#    #+#              #
-#    Updated: 2020/02/13 12:44:18 by sikpenou         ###   ########.fr        #
+#    Updated: 2020/02/23 17:18:44 by skpn             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ SRCFILES = \
 			ft_memchr.c \
 			ft_memchr_pos.c \
 			ft_memcmp.c \
-			ft_memcpy_heap.c \
+			ft_memcpy.c \
 			ft_memmove.c \
 			ft_memset.c \
 			ft_memset_pattern.c \
@@ -84,8 +84,8 @@ SRCFILES = \
 			hash_tables_access.c \
 			hash_tables_insert.c \
 			hash_tables_display.c \
-			dynamic_array.c		\
-			lib_errors.c
+			dynamic_array.c
+			#lib_errors.c
 
 SRCDIR = srcs/
 
