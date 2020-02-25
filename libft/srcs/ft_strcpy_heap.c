@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy_heap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 09:19:18 by skpn              #+#    #+#             */
-/*   Updated: 2020/02/11 09:21:39 by skpn             ###   ########.fr       */
+/*   Updated: 2020/02/24 19:37:38 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	align_strcpy(char *dst, char *src)
 {
-	while (*src && (long unsigned)src & 7LU)
+	while (*src && (unsigned long)src & 7LU)
 		*dst++ = *src++;
 }
 

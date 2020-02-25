@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 18:42:52 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/24 10:53:44 by skpn             ###   ########.fr       */
+/*   Updated: 2020/02/24 19:37:38 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define D_ARRAY_LINE_SIZE 500
 # define QUIET 0
 # define VERBOSE 1
+# define BASE_HEX "0123456789abcdef"
 
 # define MAX_ERROR 60
 # define MAX_ERROR_LENGTH 100
@@ -154,7 +155,7 @@ void					*ft_d_array_get_by_index(t_d_array *d_array
 	, unsigned index);
 int						ft_display(t_buf *buf, int opt);
 
-int						ft_find_next_prime(long unsigned nb);
+int						ft_find_next_prime(unsigned long nb);
 void					ft_free(void **match);
 void					ft_free_gc(void);
 int						ft_free_tab(void **tab, size_t len);

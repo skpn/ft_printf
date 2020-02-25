@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pf_padding.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 17:39:27 by skpn              #+#    #+#             */
-/*   Updated: 2020/02/24 10:29:13 by skpn             ###   ########.fr       */
+/*   Updated: 2020/02/25 15:21:51 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 void	get_total_len(t_pf_arg *arg)
 {
 	arg->total_len = arg->base_len + arg->prefix_len;
-	printf("width: %u, total: %u\n", arg->width, arg->total_len);
 	if (arg->width > arg->total_len)
 	{
 		arg->filler_len = arg->width - arg->total_len;
@@ -30,11 +29,16 @@ void	get_total_len(t_pf_arg *arg)
 
 void	get_prefix(t_pf_arg *arg)
 {
-	if (arg->type == TYPE_X || arg->type == TYPE_P)
+	if (arg->flag[FLAG_H] && (arg->type == TYPE_X || arg->type == TYPE_P))
 	{
 		arg->prefix[0] = '0';
 		arg->prefix[1] = 'x';
 		arg->prefix_len = 2;
+	}
+	else if (arg->is_neg)
+	{
+		arg->prefix[0] = '-';
+		arg->prefix_len = 1;
 	}
 }
 

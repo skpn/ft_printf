@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pf_ft_printf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:01:51 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/24 11:09:41 by skpn             ###   ########.fr       */
+/*   Updated: 2020/02/25 15:09:38 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int		main(int ac, char **av)
 
 	(void)ac;
 	(void)av;
-	// char *test = NULL;
-	ret = ft_dprintf(1, "arg1: %d\n", 10);
-	printf("my ret: %d\n", ret);
-	ret = printf("arg1: %d\n", 10);
-	printf("pf ret: %d\n", ret);
+	 char *test = "haha";
+	ret = ft_dprintf(1, "arg1: %p\n", test);
+	printf("my ret: %u\n", ret);
+	ret = printf("arg1: %p\n", test);
+	printf("pf ret: %u\n", ret);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 18:42:52 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/13 18:11:07 by sikpenou         ###   ########.fr       */
+/*   Updated: 2020/02/24 19:37:38 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ long long int			ft_pow(long long int nb, long long int pow);
 int						ft_check_base(char *str, char *base);
 char					*ft_convert_base(char *nbr, char *base_from
 	, char *base_to);
-int						ft_find_next_prime(long unsigned nb);
+int						ft_find_next_prime(unsigned long nb);
 void					ft_free(void **match);
 void					easyfree(void **match);
 int						ft_free_tab(void **tab, size_t len);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skpn <skpn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sikpenou <sikpenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:00:55 by sikpenou          #+#    #+#             */
-/*   Updated: 2020/02/24 10:58:58 by skpn             ###   ########.fr       */
+/*   Updated: 2020/02/25 11:52:14 by sikpenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # define TYPE_D 3
 # define TYPE_U 4
 # define TYPE_X 5
-# define TYPE_B 6
 # define NB_PF_TYPES 7
-# define PF_TYPES "cspduxb"
+# define PF_TYPES "cspdux"
+
 # define FLAG_P 0
 # define FLAG_M 1
 # define FLAG_H 2
@@ -32,10 +32,12 @@
 # define FLAG_S 4
 # define NB_PF_FLAGS 5
 # define PF_FLAGS "+-#0 "
-# define FLD_HH 1
-# define FLD_H 2
-# define FLD_L 8
-# define FLD_LL 16
+
+# define FIELD_HH 56
+# define FIELD_H 48
+# define FIELD_D 32
+# define FIELD_L 0
+# define FIELD_LL 0
 # define NB_FIELDS 5
 
 # define PF_BUF_SIZE 64
@@ -48,6 +50,21 @@
 # define ERROR_TOO_MANY_PF_ARGS 3
 # define ERROR_PF_RESULT_TOO_LONG 4
 
+typedef union 		u_pf_value
+{
+	char			ch;
+	short			sh;
+	int				d;
+	long			ld;
+	unsigned char	u_ch;
+	unsigned short	u_sh;
+	unsigned		u_d;
+	unsigned long	lu;
+	char			*s;
+	void			*p;
+}					t_pf_value;
+
+
 typedef struct		s_pf_arg
 {
 	unsigned char	type_char;
@@ -56,15 +73,16 @@ typedef struct		s_pf_arg
 	unsigned		has_prec;
 	unsigned		prec;
 	unsigned		field;
-	long long		value;
 	unsigned		base_len;
 	unsigned		prefix_len;
 	unsigned		filler_len;
 	unsigned		total_len;
 	unsigned		padding;
+	unsigned		is_neg;
 	char			filler;
-	char			prefix[2];
+	char			prefix[3];
 	char			flag[NB_PF_FLAGS];
+	t_pf_value		value;
 }					t_pf_arg;
 
 typedef struct 		s_pf	t_pf;
@@ -90,8 +108,10 @@ void				exit_pf(t_pf *pf);
 int					expand_pf_arg(t_head *args, t_lst *lst_arg);
 int					expand_pf_format(t_pf *pf);
 int					expand_type_c(t_pf *pf, t_pf_arg *arg);
-int					expand_type_d(t_pf *pf, t_pf_arg *arg);
+// int					expand_type_num(t_pf *pf, t_pf_arg *arg);
 int					expand_type_s(t_pf *pf, t_pf_arg *arg);
+int					expand_type_signed(t_pf *pf, t_pf_arg *arg);
+int					expand_type_unsigned(t_pf *pf, t_pf_arg *arg);
 
 int					get_padding(t_pf *pf, t_pf_arg *arg);
 
